@@ -7,14 +7,14 @@ def displayInventory(item: Array[String], quantity: Array[Int]) = {
     }
 }
 
-def restockItem(item: Array[String], quantity: Array[Int], newquantity: Int) = {
+def restockItem(item: Array[String], quantity: Array[Int], newQuantity: Int) = {
     var flag = false
 
     for(i <- 0 to item.length-1) {
         if(item(i) == "Sugar") {
             flag = true
             var index = i
-            quantity(i) += newquantity 
+            quantity(i) += newQuantity 
         }
     }
 
@@ -22,7 +22,7 @@ def restockItem(item: Array[String], quantity: Array[Int], newquantity: Int) = {
         print("Item not found")
     }
 
-    print("\n\nUpdated Inventory\n")
+    print("\n\nRestock Updated Inventory\n")
     for(i <- 0 to item.length-1) {
         print(item(i) + " - ")
         print(quantity(i))
@@ -31,14 +31,18 @@ def restockItem(item: Array[String], quantity: Array[Int], newquantity: Int) = {
 
 }
 
-def sellItem(item: Array[String], quantity: Array[String]) = {
+def sellItem(item: Array[String], quantity: Array[Int], sellQuantity: Int) = {
     var flag = false
 
     for(i <- 0 to item.length-1) {
-        if(item(i) == "Sugar") {
+        if(item(i) == "Dhal") {
             flag = true
-            var index = i
-            quantity(i) += newquantity 
+            var index = i 
+                if(quantity(i) < sellQuantity) {
+                    print("Quantity is not enough");
+                } else {
+                    quantity(i) -= sellQuantity
+                }
         }
     }
 
@@ -46,7 +50,7 @@ def sellItem(item: Array[String], quantity: Array[String]) = {
         print("Item not found")
     }
 
-    print("\n\nUpdated Inventory\n")
+    print("\n\nSell Updated Inventory\n")
     for(i <- 0 to item.length-1) {
         print(item(i) + " - ")
         print(quantity(i))
@@ -60,5 +64,7 @@ def main(args: Array[String]) = {
 
     displayInventory(item, quantity)
 
-    restockItem(item, quantity, 10)    
+    restockItem(item, quantity, 10) 
+
+    sellItem(item, quantity, 3)   
 }
